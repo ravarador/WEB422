@@ -17,6 +17,13 @@ app.get("/", (req, res) => {
 })
 
 // POST /api/movies
+app.post("/api/movies", (req, res) => {
+    db.addNewMovie(req.body).then(() => {
+        res.status(201).json({ message: "Movie created." });
+    }).catch((err) => {
+        res.status(500).json({ message: err });
+    })
+})
 
 // GET /api/movies
 app.get("/api/movies/", (req, res) => {
@@ -27,7 +34,7 @@ app.get("/api/movies/", (req, res) => {
     db.getAllMovies(page, perPage, title).then(data => {
         res.json(data);
     }).catch((err) => {
-        res.status(404).json({message: err});
+        res.status(404).json({ message: err });
     })
 })
 
@@ -38,19 +45,19 @@ app.get("/api/movies/:id", (req, res) => {
     db.getMovieById(id).then(data => {
         res.json(data);
     }).catch((err) => {
-        res.status(404).json({message: err});
+        res.status(404).json({ message: err });
     })
 })
 
-// PUT /api/movie
+// PUT /api/movies/:id
 app.put("/api/movies/:id", (req, res) => {
     var id = req.params.id;
     var body = req.body;
 
     db.updateMovieById(body, id).then(() => {
-        res.status(204).json({message: "Movie updated."});
+        res.status(204).json({ message: "Movie updated." });
     }).catch(err => {
-        res.status(404).json({message: err});
+        res.status(404).json({ message: err });
     })
 })
 
@@ -59,9 +66,9 @@ app.delete("/api/movies/:id", (req, res) => {
     var id = req.params.id;
 
     db.deleteMovieById(id).then(() => {
-        res.status(204).json({message: "Movie deleted."});
+        res.status(204).json({ message: "Movie deleted." });
     }).catch(err => {
-        res.status(404).json({message: err});
+        res.status(404).json({ message: err });
     })
 })
 
