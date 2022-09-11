@@ -32,6 +32,15 @@ app.get("/api/movies/", (req, res) => {
 })
 
 // GET /api/movies/:id
+app.get("/api/movies/:id", (req, res) => {
+    var id = req.params.id;
+
+    db.getMovieById(id).then(data => {
+        res.json(data);
+    }).catch((err) => {
+        res.status(404).json({message: err});
+    })
+})
 
 // PUT /api/movie
 
