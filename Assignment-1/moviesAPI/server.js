@@ -55,6 +55,15 @@ app.put("/api/movies/:id", (req, res) => {
 })
 
 // DELETE /api/movies
+app.delete("/api/movies/:id", (req, res) => {
+    var id = req.params.id;
+
+    db.deleteMovieById(id).then(() => {
+        res.status(204).json({message: "Movie deleted."});
+    }).catch(err => {
+        res.status(404).json({message: err});
+    })
+})
 
 db.initialize(process.env.MONGODB_CONN_STRING).then(() => {
     app.listen(HTTP_PORT, () => {
