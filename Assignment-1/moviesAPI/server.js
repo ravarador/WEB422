@@ -43,6 +43,16 @@ app.get("/api/movies/:id", (req, res) => {
 })
 
 // PUT /api/movie
+app.put("/api/movies/:id", (req, res) => {
+    var id = req.params.id;
+    var body = req.body;
+
+    db.updateMovieById(body, id).then(() => {
+        res.status(204).json({message: "Movie updated."});
+    }).catch(err => {
+        res.status(404).json({message: err});
+    })
+})
 
 // DELETE /api/movies
 
